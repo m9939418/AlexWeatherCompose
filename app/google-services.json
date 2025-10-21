@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "61500424071",
+    "project_id": "alexyangweatherdemo",
+    "storage_bucket": "alexyangweatherdemo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61500424071:android:482f5530303a22058a5d22",
+        "android_client_info": {
+          "package_name": "com.alex.yang.weather.demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRtJ3PYFCHadviqhkz-EuF0AOHFYkM79s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

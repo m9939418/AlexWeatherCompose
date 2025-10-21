@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.App.Splash" parent="Base.Theme.App.Splash">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
+    </style>
+
+    <style name="Theme.App" parent="Base.Theme.App" />
+
+</resources>

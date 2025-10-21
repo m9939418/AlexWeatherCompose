@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.App.Splash" parent="Base.Theme.App.Splash" />
+
+    <style name="Theme.App" parent="Base.Theme.App" />
+
+
+    <!-- Dark Base Themes  -->
+
+    <style name="Base.Theme.App.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="postSplashScreenTheme">@style/Theme.App</item>
+    </style>
+
+    <style name="Base.Theme.App" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+</resources>
