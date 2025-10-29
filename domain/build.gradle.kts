@@ -5,6 +5,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.serialization")
+
+    id("org.jetbrains.kotlinx.kover")
 }
 
 android {
@@ -38,6 +40,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.compose.runtime.annotation)
     testImplementation(libs.junit)
     testImplementation(libs.junit.junit)
     testImplementation(libs.truth)
@@ -51,9 +54,34 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
-    // Retrofit with Kotlinx Serialization Converter
-    implementation(libs.retrofit)
-
     // Joda-Time
     implementation(libs.android.joda)
+
+    // Testing
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("io.mockk:mockk:1.14.6")
+    testImplementation("com.google.truth:truth:1.4.5")
+    testImplementation(kotlin("test"))
+    testImplementation("joda-time:joda-time:2.14.0")
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                classes(
+                    // 介面與 DI 類不計入覆盖率（避免 0% 拉低）
+                    "com.alex.yang.weather.domain.repository.*",
+                    "com.alex.yang.weather.domain.di.*"
+                )
+            }
+        }
+
+        // 產出「整體」報告（JVM library 沒有 Android variant）
+        total {
+            html { onCheck = false }
+            xml { onCheck = true }
+            verify { rule { minBound(80) } }
+        }
+    }
 }

@@ -8,4 +8,6 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.57.2" apply false
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
     alias(libs.plugins.google.gms.google.services) apply false
+
+    id("org.jetbrains.kotlinx.kover")
 }

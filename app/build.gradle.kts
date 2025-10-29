@@ -78,6 +78,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":mock"))
 
     // Hilt
     implementation(libs.hilt.android)

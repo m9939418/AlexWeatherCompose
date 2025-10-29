@@ -10,6 +10,9 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    plugins {
+        id("org.jetbrains.kotlinx.kover") version "0.9.3"
+    }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -20,7 +23,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AlexWeatherDemo"
-include(":app")
-include(":data")
-include(":domain")
-include(":core")
+include(":app", ":data", ":domain", ":core", ":mock")

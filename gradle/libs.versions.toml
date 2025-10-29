@@ -32,6 +32,7 @@ datastorePreferences    = "1.1.7"
 navigationCompose = "2.9.5"
 retrofit = "3.0.0"
 truth = "1.4.5"
+runtimeAnnotation = "1.9.4"
 #composeNavigation = "2.9.3"
 
 [libraries]
@@ -79,6 +80,7 @@ firebase-config = { group = "com.google.firebase", name = "firebase-config", ver
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
+androidx-compose-runtime-annotation = { group = "androidx.compose.runtime", name = "runtime-annotation", version.ref = "runtimeAnnotation" }
 
 
 [plugins]

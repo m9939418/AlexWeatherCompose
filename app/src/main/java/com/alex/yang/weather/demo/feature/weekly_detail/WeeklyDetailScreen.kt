@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.alex.yang.mock.fakeWeeklyDaysForPreview
 import com.alex.yang.weather.core.utils.DayLabel
 import com.alex.yang.weather.demo.R
 import com.alex.yang.weather.demo.feature.home.presentation.component.WeatherCardCaptionWithIcon
@@ -55,7 +56,6 @@ import com.alex.yang.weather.demo.ui.theme.Brand24Medium
 import com.alex.yang.weather.demo.ui.theme.Brand50Medium
 import com.alex.yang.weather.demo.ui.theme.RShape16
 import com.alex.yang.weather.domain.model.Day
-import com.alex.yang.weather.domain.model.mock.fakeWeeklyDaysForPreview
 import kotlinx.coroutines.launch
 
 /**

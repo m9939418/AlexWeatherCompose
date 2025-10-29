@@ -2,8 +2,8 @@
 
 package com.alex.yang.weather.domain.model
 
+import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
-import javax.annotation.concurrent.Immutable
 
 /**
  * Created by AlexYang on 2025/10/16.

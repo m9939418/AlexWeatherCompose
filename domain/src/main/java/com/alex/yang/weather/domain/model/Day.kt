@@ -2,7 +2,7 @@
 
 package com.alex.yang.weather.domain.model
 
-import javax.annotation.concurrent.Immutable
+import androidx.compose.runtime.Immutable
 
 /**
  * Created by AlexYang on 2025/10/16.

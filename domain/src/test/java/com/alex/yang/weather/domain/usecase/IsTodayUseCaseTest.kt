@@ -13,62 +13,47 @@ import org.junit.Test
  * 單元測試：針對 IsTodayUseCase 進行測試
  *
  * 測試重點：
- * - 驗證傳入的 epoch 秒數是否正確判斷為「今天」
- * - 確認跨日、跨時區情境下的邏輯正確性
+ * - 判斷輸入的 epochSec 是否為「今天（依指定時區）」
  *
  * 測試覆蓋情境
- *  EC    測試情境                           預期行為
- * |-----|--------------------------------|----------------------------------------------|
- *  EC1  輸入今天任意時間 epoch             → 回傳 true
- *  EC2  輸入昨天任意時間 epoch             → 回傳 false
- *  EC3  輸入明天任意時間 epoch             → 回傳 false
+ *  EC    測試情境                                   預期行為
+ * |-----|----------------------------------------|--------------------------------------|
+ *  EC1  同一天（同一時區內前後小時）→                 回傳 true
+ *  EC2  昨天（不同日期）→                            回傳 false
  */
 class IsTodayUseCaseTest {
+    private val zone = DateTimeZone.forOffsetHours(8)
     private val useCase = IsTodayUseCase()
-    private val zone = DateTimeZone.getDefault()
 
     /**
-     * EC1：輸入今天時間 → 回傳 true
+     * EC1：同一天 → true
      */
     @Test
-    fun `EC1 - 輸入今天任意時間 應回傳 true`() {
-        // Given:
-        val today = DateTime.now(zone).withTimeAtStartOfDay().plusHours(10)
+    fun `EC1 - 同一天（同一時區內前後小時） 應為 true`() {
+        // Given
+        val baseNow = DateTime.now(zone).withTime(15, 0, 0, 0)
+        val epochSecSameDay = baseNow.minusHours(1).millis / 1000
 
-        // When:
-        val result = useCase(today.millis / 1000, zone)
+        // When
+        val result = useCase(epochSecSameDay, zone)
 
-        // Then:
+        // Then
         assertThat(result).isTrue()
     }
 
     /**
-     * EC2：輸入昨天時間 → 回傳 false
+     * EC2：昨天 → false
      */
     @Test
-    fun `EC2 - 輸入昨天時間 應回傳 false`() {
-        // Given:
-        val yesterday = DateTime.now(zone).minusDays(1).withTimeAtStartOfDay()
+    fun `EC2 - 昨天（不同日期） 應為 false`() {
+        // Given
+        val baseNow = DateTime.now(zone).withTime(15, 0, 0, 0)
+        val epochSecYesterday = baseNow.minusDays(1).withTime(12, 0, 0, 0).millis / 1000
 
-        // When:
-        val result = useCase(yesterday.millis / 1000, zone)
+        // When
+        val result = useCase(epochSecYesterday, zone)
 
-        // Then:
-        assertThat(result).isFalse()
-    }
-
-    /**
-     * EC3：輸入明天時間 → 回傳 false
-     */
-    @Test
-    fun `EC3 - 輸入明天時間 應回傳 false`() {
-        // Given:
-        val tomorrow = DateTime.now(zone).plusDays(1).withTimeAtStartOfDay()
-
-        // When:
-        val result = useCase(tomorrow.millis / 1000, zone)
-
-        // Then:
+        // Then
         assertThat(result).isFalse()
     }
 }

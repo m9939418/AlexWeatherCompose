@@ -26,12 +26,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.alex.yang.mock.fakeWeeklyDaysForPreview
 import com.alex.yang.weather.core.utils.HourLabel
 import com.alex.yang.weather.demo.feature.today_detail.component.HourRow
 import com.alex.yang.weather.demo.ui.theme.AlexWeatherDemoTheme
 import com.alex.yang.weather.demo.ui.theme.Brand20Medium
 import com.alex.yang.weather.domain.model.Hour
-import com.alex.yang.weather.domain.model.mock.fakeWeeklyDaysForPreview
 
 /**
  * Created by AlexYang on 2025/10/19.

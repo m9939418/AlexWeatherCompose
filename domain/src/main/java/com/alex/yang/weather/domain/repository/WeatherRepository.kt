@@ -2,7 +2,6 @@ package com.alex.yang.weather.domain.repository
 
 import com.alex.yang.weather.core.network.Resource
 import com.alex.yang.weather.domain.model.Timeline
-import retrofit2.Response
 
 /**
  * Created by AlexYang on 2025/10/16.
