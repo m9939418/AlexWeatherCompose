@@ -70,14 +70,11 @@ kover {
         filters {
             excludes {
                 classes(
-                    // 介面與 DI 類不計入覆盖率（避免 0% 拉低）
                     "com.alex.yang.weather.domain.repository.*",
                     "com.alex.yang.weather.domain.di.*"
                 )
             }
         }
-
-        // 產出「整體」報告（JVM library 沒有 Android variant）
         total {
             html { onCheck = false }
             xml { onCheck = true }

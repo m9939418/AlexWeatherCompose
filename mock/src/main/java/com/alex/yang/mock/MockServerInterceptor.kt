@@ -1,6 +1,6 @@
 @file:Suppress("SpellCheckingInspection")
 
-package com.alex.yang.weather.data.utils
+package com.alex.yang.mock
 
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

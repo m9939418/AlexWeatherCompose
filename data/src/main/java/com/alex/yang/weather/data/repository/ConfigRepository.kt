@@ -25,12 +25,24 @@ class ConfigRepository @Inject constructor(
     val json: Json
 ) {
     suspend fun fetchConfig() {
-        remoteConfig.fetchAndActivate().await()
+        runCatching {
+            remoteConfig.fetchAndActivate().await()
 
-        val apiKey = remoteConfig.getString(KEY_API_KEY)
-        val countiesJson = remoteConfig.getString(KEY_TW_COUNTIES_V1).ifBlank { getCountiesJson() }
+            // 讀取遠端值，空字串時落到本地 fallback
+            val apiKey = remoteConfig.getString(KEY_API_KEY)
+                .ifBlank { preferences.getApiKey().first() }
 
-        preferences.saveConfig(apiKey = apiKey, countiesJson = countiesJson)
+            val countiesJson = remoteConfig.getString(KEY_TW_COUNTIES_V1)
+                .ifBlank { getCountiesJson() }
+
+            // 成功路徑：寫入偏好
+            preferences.saveConfig(apiKey = apiKey, countiesJson = countiesJson)
+        }.onFailure {
+            // 失敗路徑：任何例外都不外拋，寫入可用的預設/本地值
+            val fallbackApiKey = preferences.getApiKey().first()
+            val fallbackCounties = getCountiesJson()
+            preferences.saveConfig(apiKey = fallbackApiKey, countiesJson = fallbackCounties)
+        }
     }
 
     suspend fun getCounties(): Counties {

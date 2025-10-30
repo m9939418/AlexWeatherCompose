@@ -126,13 +126,6 @@ cd weather-app
 2. Add key via **Firebase Remote Config** or local config
 3. Download `google-services.json` to `/app`
 
-### Build & Run
-
-```bash
-./gradlew build
-./gradlew installDebug
-```
-
 ---
 
 ## 🧩 Main Dependencies
@@ -192,10 +185,69 @@ implementation "com.google.firebase:firebase-config-ktx:21.5.0"
 ./gradlew :domain:test
 ./gradlew :domain:koverHtmlReport
 ```
+---
+
+### Data Module Testing (2025-10-30)
+
+**Key Highlights**
+- ✅ 100% coverage for `data.mapper` (all conversion logic verified).
+- ✅ `ConfigRepository` uses `runCatching` for safe remote config handling (no crash on failure).
+- ✅ `AppPreferences` testable via injected `DataStore`.
+- ✅ Major `safeApiCall` branches covered (200/null/404/network/parse).
+- 🧠 EC-based (Equivalence Class) testing style with `Given / When / Then` consistency.
+
+
+**📊 Coverage Summary**
+
+| Package | Class | Method | Branch | Line | Instruction |
+|----------|-------:|--------:|--------:|--------:|-------------:|
+| `data.api` | **100%** | **100%** | – | **75%** | **75%** |
+| `data.local` | **80%** | 46.2% | **60%** | **70%** | **77.8%** |
+| `data.mapper` | **100%** | **100%** | **62.1%** | **100%** | **88.1%** |
+| `data.model` | **70%** | **72.7%** | 0.3% | **89.5%** | 42.1% |
+| `data.repository` | **50%** | 35.7% | **83.3%** | **66.7%** | **80.3%** |
+| `data.utils` | **100%** | **100%** | 25% | 21.4% | 22.6% |
+| **Overall (data)** | **66.7%** | **51.7%** | **13.5%** | **73.6%** | **54.1%** |
+
+**Highlights**
+- 🟢 **Line coverage improved to 73.6% (+5%)**.
+- `data.mapper` achieved **100% line coverage**.
+- `data.repository` now covers both success and major error branches (**83% branch coverage**).
+- `data.local` confirmed **default & fallback correctness** via Robolectric tests.
+
+
+
+**🧩 Testing Strategy**
+
+- **EC (Equivalence Class)**–based test cases
+- **Given / When / Then** naming style for clarity
+- **Robolectric** for Android environment emulation
+- **kotlinx-coroutines-test** using **StandardTestDispatcher** + **MainDispatcherRule**
+- **MockK** for suspend and Firebase Task mocking (`Tasks.forResult`, `Tasks.forException`)
+- **Google Truth** for expressive, stable assertions
+
+
+**▶︎ How to Run Tests & View Coverage (macOS)**
+
+A simple shell script is provided to **run tests** for the `data` module and automatically **open the Kover HTML report**.
+
+```bash
+# Make the script executable (first time only)
+chmod +x data/run_unit_test_data.sh
+
+# Run tests and open report
+./data/run_unit_test_data.sh
+```
+
+**What this script does**
+1. Switches to the project root (where `gradlew` is located)
+2. Runs the unit tests
+3. Generates the coverage report
+4. Automatically opens the HTML report:
 
 ---
 
-## 🔐 Security
+### 🔐 Security
 
 * API key stored in **Firebase Remote Config**
 * All network traffic over **HTTPS**
@@ -204,7 +256,7 @@ implementation "com.google.firebase:firebase-config-ktx:21.5.0"
 
 ---
 
-## ⚡ Performance Highlights
+### ⚡ Performance Highlights
 
 * Optimized `LazyColumn` rendering with stable keys
 * Cached image loading via Coil
@@ -213,7 +265,7 @@ implementation "com.google.firebase:firebase-config-ktx:21.5.0"
 
 ---
 
-## 🧭 Roadmap
+### 🧭 Roadmap
 
 * [ ] Weather alerts & notifications
 * [ ] Chart visualization (temperature, humidity)
@@ -223,7 +275,7 @@ implementation "com.google.firebase:firebase-config-ktx:21.5.0"
 
 ---
 
-## 👨‍💻 Author
+### 👨‍💻 Author
 
 **Alex Yang**
 
@@ -231,7 +283,7 @@ implementation "com.google.firebase:firebase-config-ktx:21.5.0"
 
 ---
 
-## 🙏 Acknowledgments
+### 🙏 Acknowledgments
 
 * [Visual Crossing Weather API](https://www.visualcrossing.com/)
 * [Material Design 3](https://m3.material.io/)
