@@ -14,7 +14,7 @@ import javax.inject.Inject
  *
  */
 class WeatherRepositoryImpl @Inject constructor(
-    val services: VisualCrossingWebServices
+    private val services: VisualCrossingWebServices
 ) : WeatherRepository {
     override suspend fun getWeather(
         location: String,

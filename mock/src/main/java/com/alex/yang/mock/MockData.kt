@@ -1,6 +1,5 @@
 package com.alex.yang.mock
 
-import android.R
 import com.alex.yang.weather.domain.model.Day
 import com.alex.yang.weather.domain.model.Hour
 import org.joda.time.DateTime
@@ -39,7 +38,7 @@ fun fakeWeeklyDaysForPreview(
                 sunrise = dayStart.plusHours(6).toString("HH:mm:ss", Locale.TAIWAN),
                 sunset = dayStart.plusHours(18).toString("HH:mm:ss", Locale.TAIWAN),
                 conditions = if (h in 13..16) "陣雨" else "多雲",
-                icon = R.drawable.ic_menu_compass
+                icon = 0
             )
         }
 
@@ -66,7 +65,7 @@ fun fakeWeeklyDaysForPreview(
             sunrise = dayStart.plusHours(6).toString("HH:mm:ss", Locale.TAIWAN),
             sunset = dayStart.plusHours(18).toString("HH:mm:ss", Locale.TAIWAN),
             conditions = "多雲",
-            icon = R.drawable.ic_menu_compass,
+            icon = 0,
             hours = hours
         )
     }

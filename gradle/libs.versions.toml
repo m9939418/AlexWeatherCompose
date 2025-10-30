@@ -34,6 +34,9 @@ retrofit = "3.0.0"
 truth = "1.4.5"
 runtimeAnnotation = "1.9.4"
 coreKtxVersion = "1.7.0"
+uiToolingPreview = "1.9.4"
+uiTooling = "1.9.4"
+runtime = "1.9.4"
 #composeNavigation = "2.9.3"
 
 [libraries]
@@ -73,7 +76,6 @@ coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 coil-gif = { group = "io.coil-kt", name = "coil-gif", version.ref = "coil" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
-junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config", version.ref = "firebaseConfig" }
@@ -83,6 +85,9 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 androidx-compose-runtime-annotation = { group = "androidx.compose.runtime", name = "runtime-annotation", version.ref = "runtimeAnnotation" }
 core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxVersion" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 
 
 [plugins]

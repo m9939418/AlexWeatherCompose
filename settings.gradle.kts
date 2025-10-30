@@ -24,3 +24,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "AlexWeatherDemo"
 include(":app", ":data", ":domain", ":core", ":mock")
+include(":feature")
+include(":feature:web")
+include(":core:navigation")
+include(":feature:home")
+include(":feature:weekly_detail")
+include(":core-ui")
+include(":feature:today_detail")

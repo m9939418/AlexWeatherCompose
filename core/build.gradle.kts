@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -31,7 +33,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions { jvmTarget = "11" }
+    kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_11 } }
     buildFeatures { compose = true }
 }
 
@@ -44,6 +46,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.interpolator)
+    implementation(libs.androidx.ui.tooling.preview)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -51,6 +54,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    debugImplementation(libs.androidx.ui.tooling)
     ksp(libs.hilt.android.compiler)
 
     // Retrofit with Kotlinx Serialization Converter

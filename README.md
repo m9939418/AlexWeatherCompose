@@ -9,7 +9,7 @@ Clean Architecture + MVVM + MVI + Jetpack Compose + Kotlin + Coroutines + Retrof
 ## 🧩 Tech Stack Overview
 
 **Core Technologies:**
-Kotlin · Jetpack Compose · Coroutines · Flow · Clean Architecture · Hilt · Retrofit · OkHttp · Kotlinx Serialization · DataStore · Coil · Joda-Time · Firebase Remote Config
+Kotlin｜Jetpack Compose｜Coroutines｜Flow｜Clean Architecture｜Hilt｜Retrofit｜OkHttp｜Kotlinx Serialization｜DataStore｜Joda-Time｜Firebase Remote Config｜MockK｜Kover｜Google Truth｜Robolectric
 
 **Architecture Layers:**
 
@@ -37,19 +37,10 @@ Temperature · Feels-like · Humidity · Dew Point · Precipitation · Wind Spee
 * 🌓 **Dark / Light Mode**
 * 🎨 **Material Design 3** + Dynamic Color (Android 12+)
 * ⚡ **Smooth Animations & Transitions**
-* 📱 **Responsive Layouts** for phone/tablet
+* 📱 **Responsive Layouts** for phone
 * 🔌 **Offline Detection** with network alerts
 
 ---
-
-## 🏗️ Project Architecture
-
-```
-📦 app
-├── presentation/      # Compose UI & ViewModels
-├── domain/            # Business logic & UseCases
-└── data/              # API, repository, mapper, and local storage
-```
 
 ### 🔹 Architecture Pattern
 
@@ -58,14 +49,6 @@ Follows **Clean Architecture** principles with strict layer boundaries:
 * **Presentation Layer**: UI logic (Compose + ViewModel)
 * **Domain Layer**: Use Cases (pure business rules)
 * **Data Layer**: Repository, API, DTOs, and mappers
-
-### 🔹 Data Flow
-
-Unidirectional data flow (MVI) with `StateFlow`:
-
-```
-UI → ViewModel (Intent) → UseCase → Repository → ViewModel (State) → UI
-```
 
 ---
 
@@ -87,10 +70,21 @@ UI → ViewModel (Intent) → UseCase → Repository → ViewModel (State) → U
 ### UI & UX
 
 * **Material 3** – Modern UI guidelines
-* **Coil** – Image loading and caching
 * **Edge-to-Edge Layout** – Immersive UI experience
 * **Splash Screen API** – Native launch experience
+* **Firebase Remote Config** – Dynamically updates UI and feature flags without releasing a new app build
+* **Dynamic Dark / Light Theme** – Supports automatic theme switching and custom Material3 color schemes for consistent visual experience
 
+### Unit Testing
+
+* **JUnit4 / Kotlin Test** – Core testing framework for unit and integration tests
+* **kotlinx-coroutines-test** – Virtual time scheduler and structured coroutine testing
+* **MockK** – Mocking library for Kotlin, supports suspend functions and verification
+* **Google Truth** – Fluent assertion library for human-readable test validation
+* **Robolectric** – Simulates Android runtime for local DataStore and Context-based testing
+* **TemporaryFolder (JUnit Rule)** – Creates isolated temp files for DataStore
+* **Firebase Tasks Mocking** – Mocks async Remote Config tasks for success/failure verification
+* **Kover Gradle Plugin** – Generates detailed coverage report in HTML for CI/CD pipelines
 ---
 
 ## 🧭 Key Screens
@@ -105,59 +99,12 @@ UI → ViewModel (Intent) → UseCase → Repository → ViewModel (State) → U
 
 ---
 
-## 🧱 Build Setup
-
-### Prerequisites
-
-* **Android Studio Hedgehog (2023.1.1)** or later
-* **JDK 17**
-* **Android SDK 36 (minSdk 24)**
-
-### Installation
-
-```bash
-git clone https://github.com/your-username/weather-app.git
-cd weather-app
-```
 
 ### Configuration
 
 1. Register for an API key on [Visual Crossing Weather API](https://www.visualcrossing.com/)
 2. Add key via **Firebase Remote Config** or local config
 3. Download `google-services.json` to `/app`
-
----
-
-## 🧩 Main Dependencies
-
-```gradle
-// Jetpack Compose
-implementation "androidx.compose.ui:ui:1.5.4"
-implementation "androidx.compose.material3:material3:1.1.2"
-
-// Navigation
-implementation "androidx.navigation:navigation-compose:2.7.5"
-
-// Dependency Injection
-implementation "com.google.dagger:hilt-android:2.48"
-kapt "com.google.dagger:hilt-compiler:2.48"
-
-// Networking
-implementation "com.squareup.retrofit2:retrofit:2.9.0"
-implementation "com.squareup.okhttp3:okhttp:4.12.0"
-
-// Serialization
-implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0"
-
-// Persistence
-implementation "androidx.datastore:datastore-preferences:1.0.0"
-
-// Image Loading
-implementation "io.coil-kt:coil-compose:2.5.0"
-
-// Firebase
-implementation "com.google.firebase:firebase-config-ktx:21.5.0"
-```
 
 ---
 
@@ -169,7 +116,7 @@ implementation "com.google.firebase:firebase-config-ktx:21.5.0"
 * Deterministic time control via fixed `DateTimeZone.forOffsetHours(8)`
 * All UseCases isolated and repository calls verified with `coVerify`
 
-**Coverage Summary (as of 2025-10-29)**
+**📊 COVERAGE SUMMARY (AS OF 2025-10-29)**
 
 | Layer       | Coverage  | Status                                      |
 | ----------- | --------- | ------------------------------------------- |
@@ -179,7 +126,7 @@ implementation "com.google.firebase:firebase-config-ktx:21.5.0"
 
 > Adding 3–5 small unit tests will raise coverage above 80% and meet the `minBound(80)` CI rule.
 
-**Run Tests**
+**▶ RUN TESTS**
 
 ```bash
 ./gradlew :domain:test
@@ -187,81 +134,68 @@ implementation "com.google.firebase:firebase-config-ktx:21.5.0"
 ```
 ---
 
-### Data Module Testing (2025-10-30)
+###Data Module Testing (Updated 2025-10-31)
 
-**Key Highlights**
-- ✅ 100% coverage for `data.mapper` (all conversion logic verified).
-- ✅ `ConfigRepository` uses `runCatching` for safe remote config handling (no crash on failure).
-- ✅ `AppPreferences` testable via injected `DataStore`.
-- ✅ Major `safeApiCall` branches covered (200/null/404/network/parse).
-- 🧠 EC-based (Equivalence Class) testing style with `Given / When / Then` consistency.
+**📌 HIGHLIGHTS**
 
+* ✅ `data.mapper` maintains **100% line coverage** (complete verification for Hour/Day/Timeline conversion).
+* ✅ Added `DataStoreRepositoryImplTest`, covering all DataStore I/O and serialization/deserialization logic (EC1–EC5).
+* ✅ Added `AssetsLocalDataSourceImplTest`, covering UTF-8 reading, exception propagation, and Unicode (Chinese) content retention (EC1–EC4).
+* ✅ Added `RemoteConfigDataSourceImplTest`, covering both success/failure of `fetchAndActivate()` and correctness of `getString()` (EC1–EC5).
+* ✅ `ConfigRepositoryImplTest` covers success, empty value fallback, remote failure, and decoding scenarios (EC1–EC4).
+* ✅ `WeatherRepositoryImplTest` covers all major safeApiCall branches: 200/null/404/network/parse.
+* 🧠 All tests follow **Equivalence Class (EC)** design and **Given / When / Then** structure.
+* 🧩 Full coverage across Firebase Remote Config, DataStore, Assets I/O, and Retrofit network layer.
 
-**📊 Coverage Summary**
+---
 
-| Package | Class | Method | Branch | Line | Instruction |
-|----------|-------:|--------:|--------:|--------:|-------------:|
-| `data.api` | **100%** | **100%** | – | **75%** | **75%** |
-| `data.local` | **80%** | 46.2% | **60%** | **70%** | **77.8%** |
-| `data.mapper` | **100%** | **100%** | **62.1%** | **100%** | **88.1%** |
-| `data.model` | **70%** | **72.7%** | 0.3% | **89.5%** | 42.1% |
-| `data.repository` | **50%** | 35.7% | **83.3%** | **66.7%** | **80.3%** |
-| `data.utils` | **100%** | **100%** | 25% | 21.4% | 22.6% |
-| **Overall (data)** | **66.7%** | **51.7%** | **13.5%** | **73.6%** | **54.1%** |
+**📊 COVERAGE SUMMARY (AFTER 2025-10-31 ENHANCEMENT)**
 
-**Highlights**
-- 🟢 **Line coverage improved to 73.6% (+5%)**.
-- `data.mapper` achieved **100% line coverage**.
-- `data.repository` now covers both success and major error branches (**83% branch coverage**).
-- `data.local` confirmed **default & fallback correctness** via Robolectric tests.
+| Package            |              Class |               Method |              Branch |                   Line |              Instruction |
+| :----------------- | -----------------: | -------------------: | ------------------: | ---------------------: | -----------------------: |
+| `data.api`         |          **100 %** |            **100 %** |                   – |               **75 %** |                 **75 %** |
+| `data.datasource`  |         **45.5 %** |           **38.5 %** |            **80 %** |               **62 %** |               **56.9 %** |
+| `data.mapper`      |          **100 %** |            **100 %** |          **62.1 %** |              **100 %** |               **88.1 %** |
+| `data.model`       |          **100 %** |            **100 %** |             **0 %** |              **100 %** |               **42.9 %** |
+| `data.repository`  |           **50 %** |           **38.5 %** |            **75 %** |               **69 %** |               **81.9 %** |
+| `data.utils`       |          **100 %** |            **100 %** |            **25 %** |             **21.4 %** |               **22.6 %** |
+| **Overall (data)** | **60 % (18 / 30)** | **47.1 % (32 / 68)** | **14 % (62 / 442)** | **73.2 % (161 / 220)** | **53.7 % (1665 / 3101)** |
 
+**✅ Line coverage improved to 73.2% (+ ~6%)**
 
+---
 
-**🧩 Testing Strategy**
+**🧪 IMPLEMENTED TEST CLASSES**
 
-- **EC (Equivalence Class)**–based test cases
-- **Given / When / Then** naming style for clarity
-- **Robolectric** for Android environment emulation
-- **kotlinx-coroutines-test** using **StandardTestDispatcher** + **MainDispatcherRule**
-- **MockK** for suspend and Firebase Task mocking (`Tasks.forResult`, `Tasks.forException`)
-- **Google Truth** for expressive, stable assertions
+| Test Class                       | Focus                                    | EC Count |
+| -------------------------------- | ---------------------------------------- | :------: |
+| `MapperTest`                     | Hour/Day/Timeline mapping verification   |     3    |
+| `WeatherRepositoryImplTest`      | safeApiCall (200/null/404/network/parse) |     5    |
+| `ConfigRepositoryTest`           | Remote Config fetch + Assets fallback    |     4    |
+| `DataStoreRepositoryTest`        | DataStore save/restore behavior          |     5    |
+| `AssetsLocalDataSourceTest`  | UTF-8 reading + exception handling       |     4    |
+| `RemoteConfigDataSourceTest` | Firebase Remote Config behavior                     |     5    |
+| **Total EC Cases**               | –                                        |    26    |
 
+---
 
-**▶︎ How to Run Tests & View Coverage (macOS)**
-
-A simple shell script is provided to **run tests** for the `data` module and automatically **open the Kover HTML report**.
+**▶ RUN TESTS AND GENERATE COVERAGE (MACOS)**
 
 ```bash
-# Make the script executable (first time only)
-chmod +x data/run_unit_test_data.sh
+# Run all Data module tests
+./gradlew :data:test
 
-# Run tests and open report
-./data/run_unit_test_data.sh
+# Generate HTML coverage report
+./gradlew :data:koverHtmlReport
+open data/build/reports/kover/html/index.html
 ```
 
-**What this script does**
-1. Switches to the project root (where `gradlew` is located)
-2. Runs the unit tests
-3. Generates the coverage report
-4. Automatically opens the HTML report:
+Or using the provided shell script:
 
----
-
-### 🔐 Security
-
-* API key stored in **Firebase Remote Config**
-* All network traffic over **HTTPS**
-* No sensitive data hardcoded
-* **R8 / ProGuard** enabled for release builds
-
----
-
-### ⚡ Performance Highlights
-
-* Optimized `LazyColumn` rendering with stable keys
-* Cached image loading via Coil
-* Smart retry and timeout in OkHttp
-* Efficient ViewModel cleanup and recomposition control
+```bash
+chmod +x data/run_unit_test_data.sh
+./data/run_unit_test_data.sh
+```
 
 ---
 

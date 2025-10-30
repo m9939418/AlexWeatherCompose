@@ -10,11 +10,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.alex.yang.weather.demo.feature.home.presentation.HomeScreen
-import com.alex.yang.weather.demo.feature.home.presentation.HomeSharedViewModel
-import com.alex.yang.weather.demo.feature.today_detail.TodayDetailScreen
-import com.alex.yang.weather.demo.feature.web.WebScreen
-import com.alex.yang.weather.demo.feature.weekly_detail.WeeklyDetailScreen
+import com.alex.yang.home.presentation.HomeScreen
+import com.alex.yang.home.presentation.HomeSharedViewModel
+import com.alex.yang.navigation.AppRoute
+import com.alex.yang.today_detail.TodayDetailScreen
+import com.alex.yang.web.WebScreen
+import com.alex.yang.weekly_detail.WeeklyDetailScreen
 
 /**
  * Created by AlexYang on 2025/10/16.

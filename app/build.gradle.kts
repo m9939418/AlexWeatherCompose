@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -44,7 +46,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions { jvmTarget = "11" }
+    kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_11 } }
     buildFeatures {
         buildConfig = true
         compose = true
@@ -52,6 +54,18 @@ android {
 }
 
 dependencies {
+    // Project Dependencies
+    implementation(project(":core"))
+    implementation(project(":core-ui"))
+    implementation(project(":core:navigation"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":mock"))
+    implementation(project(":feature:web"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:weekly_detail"))
+    implementation(project(":feature:today_detail"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -74,12 +88,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    // Project Dependencies
-    implementation(project(":core"))
-    implementation(project(":domain"))
-    implementation(project(":data"))
-    implementation(project(":mock"))
-
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
@@ -90,17 +98,4 @@ dependencies {
 
     // Splash Screen
     implementation(libs.androidx.core.splashscreen)
-
-    // Coil
-    implementation(libs.coil)
-    implementation(libs.coil.svg)
-    implementation(libs.coil.gif)
-    implementation(libs.coil.compose)
-
-    // Joda-Time
-    implementation(libs.android.joda)
-
-    // Compose Material Icons
-    implementation(libs.androidx.compose.material.icons.core)
-    implementation(libs.androidx.compose.material.icons.extended)
 }
