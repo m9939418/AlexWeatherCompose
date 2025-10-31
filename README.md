@@ -134,7 +134,7 @@ Follows **Clean Architecture** principles with strict layer boundaries:
 ```
 ---
 
-###Data Module Testing (Updated 2025-10-31)
+### Data Module Testing (Updated 2025-10-31)
 
 **📌 HIGHLIGHTS**
 
@@ -199,7 +199,7 @@ chmod +x data/run_unit_test_data.sh
 
 ---
 
-###Home Module Testing (Updated 2025-10-31)
+### Home Module Testing (Updated 2025-10-31)
 
 **📌 HIGHLIGHTS**
 
