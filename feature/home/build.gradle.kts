@@ -8,6 +8,8 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.serialization")
+
+    id("org.jetbrains.kotlinx.kover")
 }
 
 android {
@@ -41,6 +43,9 @@ android {
         buildConfig = true
         compose = true
     }
+    testOptions {
+        unitTests { isIncludeAndroidResources = true }
+    }
 }
 
 dependencies {
@@ -54,9 +59,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -80,4 +83,34 @@ dependencies {
 
     // Joda-Time
     implementation(libs.android.joda)
+
+    // Testing
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("io.mockk:mockk:1.14.6")
+    testImplementation(kotlin("test"))
+    testImplementation("org.robolectric:robolectric:4.16")
+    testImplementation("joda-time:joda-time:2.14.0")
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                classes(
+                    "hilt_aggregated_deps.*",
+                    "dagger.hilt.internal.*",
+                    "com.alex.yang.home.BuildConfig"
+                )
+            }
+        }
+        total {
+            html { onCheck = false }
+            xml { onCheck = true }
+            verify { rule { minBound(50) } }
+        }
+    }
 }

@@ -38,9 +38,7 @@ android {
     }
     kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_11 } }
     testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
+        unitTests { isIncludeAndroidResources = true }
     }
 }
 

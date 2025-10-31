@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alex.yang.home.R
 import com.alex.yang.weather.core.extension.asComma
-import com.alex.yang.weather.core.network.NetworkManager
+import com.alex.yang.weather.core.network.NetworkStateDetect
 import com.alex.yang.weather.core.network.Resource
 import com.alex.yang.weather.core.utils.DayLabel
 import com.alex.yang.weather.core.utils.HourLabel
@@ -47,12 +47,10 @@ class HomeViewModel @Inject constructor(
     private val findTodayDayUseCase: FindTodayDayUseCase,
     private val isCurrentHourUseCase: IsCurrentHourUseCase,
     private val isTodayUseCase: IsTodayUseCase,
-//    private val preferences: AppPreferences,
-//    private val configRepository: ConfigRepository,
     private val preferences: DataStoreRepository,
     private val configRepository: ConfigRepository,
+    private val networkStateDetect: NetworkStateDetect
 
-    private val networkManager: NetworkManager,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState())
     val uiState = _uiState.asStateFlow()
@@ -76,7 +74,7 @@ class HomeViewModel @Inject constructor(
 
     fun fetchWeather() {
         viewModelScope.launch {
-            networkManager.guardOnline(
+            networkStateDetect.guardOnline(
                 doOnAvailable = {
                     _uiState.update { it.copy(isLoading = true, showDialog = false) }
 

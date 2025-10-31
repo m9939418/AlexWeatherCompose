@@ -69,8 +69,8 @@ object DataModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-//        @AppHost baseUrl: String,
-        @MockupHost baseUrl: String,
+        @AppHost baseUrl: String,
+//        @MockupHost baseUrl: String,
         client: OkHttpClient,
         factory: Converter.Factory
     ): Retrofit =

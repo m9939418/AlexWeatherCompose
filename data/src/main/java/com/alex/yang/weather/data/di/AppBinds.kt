@@ -1,5 +1,7 @@
 package com.alex.yang.weather.data.di
 
+import com.alex.yang.weather.core.network.NetworkStateDetect
+import com.alex.yang.weather.core.network.NetworkStateDetectImpl
 import com.alex.yang.weather.data.datasource.AssetsLocalDataSource
 import com.alex.yang.weather.data.datasource.AssetsLocalDataSourceImpl
 import com.alex.yang.weather.data.datasource.RemoteConfigDataSource
@@ -25,4 +27,8 @@ abstract class AppBinds {
     @Binds
     @Singleton
     abstract fun bindAssetsLocalDataSource(impl: AssetsLocalDataSourceImpl): AssetsLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindNetworkStateDetect(impl: NetworkStateDetectImpl): NetworkStateDetect
 }

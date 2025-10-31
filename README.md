@@ -199,6 +199,69 @@ chmod +x data/run_unit_test_data.sh
 
 ---
 
+###Home Module Testing (Updated 2025-10-31)
+
+**📌 HIGHLIGHTS**
+
+- ✅ **Refactored NetworkManager → NetworkStateDetect interface**, eliminating inline + suspend lambda usage that caused `AbstractMethodError`, improving testability and substitutability.
+- ✅ **Fully testable HomeViewModel** – all core logic now runs through explicitly injected UseCases (`GetWeatherUseCase`, `IsTodayUseCase`, `IsCurrentHourUseCase`, `FindTodayDayUseCase`).
+- ✅ Introduced **MockNetworkStateDetectImpl** to simulate online/offline states, removing Android dependency in unit tests.
+- ✅ Added **run_unit_test_home.sh** script supporting one-click execution on macOS and auto-opening the HTML coverage report.
+- ✅ Test cases now cover all major scenarios and UI state transitions (success, error, offline, empty data, and state updates).
+- 🧠 All test cases follow the **Equivalence Class (EC)** and **Given / When / Then** conventions for better readability and consistency.
+
+---
+
+**📊 COVERAGE SUMMARY (AFTER 2025-10-31 ENHANCEMENT)**
+
+| Package | Class | Method | Branch | Line | Instruction |
+| :------ | ----: | -----: | -----: | ---: | -----------: |
+| `com.alex.yang.home.presentation` | **36.7 %** | **26 %** | **21.2 %** | **55 %** | **48.2 %** |
+| `com.alex.yang.home.presentation.component` | **0 %** | **0 %** | **0 %** | **0 %** | **0 %** |
+| **Overall (home)** | **17.7 %** | **10.8 %** | **8.1 %** | **17.7 %** | **15.2 %** |
+
+> ⚠️ The `presentation.component` (Compose UI) package has not yet been tested using Robolectric / Compose UI tests, resulting in 0% coverage.  
+> ✅ `HomeViewModel` now reaches **55% line coverage**, with both success and error branches covered.
+
+---
+
+**🧪 IMPLEMENTED TEST CLASSES**
+
+| Test Class | Focus / Description | EC Count |
+| :---------- | :----------------- | :------: |
+| `HomeViewModelTest` | Validates weather fetching flow and UI state transitions: success, error, offline, refresh, and sheet visibility. Uses real UseCases with mock repositories for full mapping coverage. | EC1–EC5 |
+| `HomeSharedViewModelTest` | Verifies shared state updates (hours/days lists). Ensures correct emission, last-write-wins behavior, and empty-state handling. | EC0–EC2 |
+| `MainDispatcherRule` | Provides a `StandardTestDispatcher` to control coroutine timing in tests, ensuring deterministic execution. | – |
+| `MockNetworkStateDetectImpl` | Simulates network connectivity (online/offline) for reliable test branching. | – |
+| `MockWeatherRepository` | Returns configurable `Resource.Success` or `Resource.Error` responses for predictable fetch results. | – |
+| `FakeData.kt` | Supplies stable fake `Timeline`, `County`, `Day`, and `Hour` data for unit tests, avoiding Joda-Time dependency issues. | – |
+| **Total EC Cases** | – | **8** |
+
+---
+
+**▶ RUN TESTS AND GENERATE COVERAGE (macOS)**
+
+
+```bash
+# Run all Data module tests
+./gradlew :feature:home:test
+
+# Generate HTML coverage report
+./gradlew :feature:home:koverHtmlReport
+
+open feature/home/build/reports/kover/html/index.html
+```
+
+Or using the provided shell script:
+
+```bash
+chmod +x feature/home/run_unit_test_home.sh
+feature/home/run_unit_test_home.sh
+```
+
+------------
+
+
 ### 🧭 Roadmap
 
 * [ ] Weather alerts & notifications
